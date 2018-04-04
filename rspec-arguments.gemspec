@@ -10,11 +10,10 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Marco Costa']
   spec.email         = ['marco@marcotc.com']
 
-  spec.summary       = 'Enforce presence of specific columns in ActiveRecord queries.'
+  spec.summary       = ' Parameter passing to implicit RSpec subjects.'
   spec.description   = <<~DESC
-    Enforces the presence of specific columns in SELECT queries. Useful when you have
-    performance restrictions when specific columns are not included in your WHERE clauses.
-    Indexed columns and partition keys are common examples of such columns.
+    Allows parameter passing to implicit RSpec subjects.
+    It also adds support for implicit method calls on described_class instances.
   DESC
   spec.homepage      = 'https://github.com/wealthsimple/rspec-arguments'
 
@@ -27,7 +26,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.4'
 
-  spec.add_dependency 'activerecord', '~> 5'
+  spec.add_dependency 'rspec-core', '~> 3'
 
   spec.add_development_dependency 'bundler', '~> 1.15'
   spec.add_development_dependency 'bundler-audit'
