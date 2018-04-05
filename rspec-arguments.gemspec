@@ -9,6 +9,7 @@ Gem::Specification.new do |spec|
   spec.version       = RSpec::Arguments::VERSION
   spec.authors       = ['Marco Costa']
   spec.email         = ['marco@marcotc.com']
+  spec.license = "MIT"
 
   spec.summary       = ' Parameter passing to implicit RSpec subjects.'
   spec.description   = <<~DESC
