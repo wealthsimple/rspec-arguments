@@ -120,7 +120,7 @@ end
 
 Notice we can't reuse our implicit `subject`, and have to resort to re-initializing our `described_class`, and proving the required arguments to the desired method.
 
-Similarly to initilizer methods, this gem introduces methods to facilitate implicit method calls.
+Similarly to initializer methods, this gem introduces methods to facilitate implicit method calls.
 
 ```ruby
 RSpec.describe User do
