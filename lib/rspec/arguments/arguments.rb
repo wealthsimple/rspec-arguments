@@ -56,7 +56,7 @@ module RSpec
 
       positional_args << keyword_args unless keyword_args.empty?
 
-      proc.call *positional_args, &block_args
+      proc.call(*positional_args, &block_args)
     end
 
     # Search for method under testing
@@ -73,7 +73,7 @@ module RSpec
       # Return here if you were nice and declared
       # your method under test using
       # `method: :method_name`.
-      return method_arg if Symbol === method_arg
+      return method_arg if method_arg.is_a?(Symbol)
 
       # Otherwise, we have to search for the described
       # name string somewhere in our ancestor chain.
@@ -99,9 +99,9 @@ module RSpec
         self.class.instance_methods,
         POSITIONAL_ARG,
         KEYWORD_ARG,
-        BLOCK_ARG
+        BLOCK_ARG,
       ) do |*args, &block|
-        receiver.new *args, &block
+        receiver.new(*args, &block)
       end
     end
 
@@ -110,9 +110,9 @@ module RSpec
         self.class.instance_methods,
         METHOD_POSITIONAL_ARG,
         METHOD_KEYWORD_ARG,
-        METHOD_BLOCK_ARG
+        METHOD_BLOCK_ARG,
       ) do |*args, &block|
-        receiver.send method_sym, *args, &block
+        receiver.send(method_sym, *args, &block)
       end
     end
   end

@@ -74,7 +74,7 @@ RSpec.describe C do
     end
 
     context '#wrong_method', :method do
-      it { is_expected.to eq(:wrong_method)}
+      it { is_expected.to eq(:wrong_method) }
     end
   end
 end

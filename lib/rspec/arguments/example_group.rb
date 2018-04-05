@@ -61,7 +61,7 @@ module RSpec
       def _arg(positional_arg, keyword_arg, name, position = nil, &block)
         let(name, &block)
 
-        if Integer === position
+        if position.is_a?(Integer)
           let(positional_arg.+(position.to_s).to_sym) { send(name) }
         else
           let(keyword_arg.+((position || name).to_s).to_sym) { send(name) }
