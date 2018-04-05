@@ -1,4 +1,4 @@
-# RSpec Arguments [![CircleCI](https://circleci.com/gh/wealthsimple/rspec-arguments.svg?style=svg)](https://circleci.com/gh/wealthsimple/rspec-arguments)
+# RSpec Arguments [![CircleCI](https://circleci.com/gh/wealthsimple/rspec-arguments.svg?style=svg)](https://circleci.com/gh/wealthsimple/rspec-arguments) [![Gem](https://img.shields.io/gem/v/rspec-arguments.svg)](https://rubygems.org/gems/rspec-arguments)
 
 Provide arguments to the implicit RSpec `subject`.
 Also, call instance and class methods implicitly.
