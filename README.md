@@ -1,5 +1,35 @@
 # RSpec Arguments [![CircleCI](https://circleci.com/gh/wealthsimple/rspec-arguments.svg?style=svg)](https://circleci.com/gh/wealthsimple/rspec-arguments)
 
+Provide arguments to the implicit RSpec `subject`.
+Also, call instance and class methods implicitly.
+
+## Example (TL;DR)
+
+```ruby
+class Thing
+  def initializer(username)
+  end
+  
+  def perform(save:)
+    save
+  end
+end
+
+RSpec.describe Thing do
+  arg(:username, 0) { 'user123' }
+
+  it { is_expected.to be_a(Thing) }
+
+  describe '#save', :method do
+    method_arg(:save) { true }
+    
+    it { is_expected.to eq(save) }
+  end
+end
+```
+
+## Documentation
+
 Out-of-the box, RSpec provides us with an implicit `subject` method that instantiates the described class under test, giving us an instance which we can assert on:
 
 ```ruby
