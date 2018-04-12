@@ -82,9 +82,7 @@ module RSpec
       # recursively search ascendants' metadata
       # for the correct method under testing.
       method_name = search_method_name(self.class.metadata, key)
-      method_name.sub!('#', '')
-      method_name.sub!('.', '')
-      method_name.to_sym
+      method_name.sub('#', '').sub('.', '').to_sym
     end
 
     def search_method_name(metadata, key)
