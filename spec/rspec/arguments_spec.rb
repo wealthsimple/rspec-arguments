@@ -20,6 +20,12 @@ class C
   def self.class_method(arg, kwarg:, &block)
     new(arg, kwarg: kwarg, &block)
   end
+
+  def ==(other)
+    arg == other.arg &&
+      kwarg == other.kwarg &&
+      block == other.block
+  end
 end
 
 shared_examples :simple_args do
@@ -57,20 +63,29 @@ RSpec.describe C do
     its(:arg) { is_expected.to eq(:other) }
   end
 
+  it 'instance should match subject' do
+    expect(instance).to be(subject)
+  end
+
   describe 'with method arguments' do
     method_arg(:m_arg, 0) { :m_arg_0 }
     method_arg(:m_kwarg, :kwarg) { :m_kw_value }
     method_arg_block(:m_block) { proc {} }
 
-    # method_arg(0) { :m_arg_0 }
-    # method_arg(:kwarg) { :m_kw_value }
-
     context '#instance_method', :method do
       it_behaves_like :simple_method_args
+
+      it 'instance should match parent instance' do
+        expect(instance).to eq(described_class.new(:arg_0, kwarg: :kw_value, &block))
+      end
     end
 
     context '.class_method', :class_method do
       it_behaves_like :simple_method_args
+
+      it 'instance should not exist' do
+        expect { instance }.to raise_error(StandardError)
+      end
     end
 
     context '#wrong_method', :method do

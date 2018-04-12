@@ -59,6 +59,8 @@ module RSpec
       private
 
       def _arg(positional_arg, keyword_arg, name, position = nil, &block)
+        metadata[:rspec_arguments] = true
+
         let(name, &block)
 
         if position.is_a?(Integer)
@@ -69,6 +71,8 @@ module RSpec
       end
 
       def _arg_block(block_arg, name, &block)
+        metadata[:rspec_arguments] = true
+
         let(name, &block)
 
         let(block_arg.+(name.to_s).to_sym) { send(name) }

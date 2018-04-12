@@ -20,10 +20,14 @@ RSpec.describe Thing do
 
   it { is_expected.to be_a(Thing) }
 
-  describe '#save', :method do
+  describe '#perform', :method do
     method_arg(:save) { true }
     
     it { is_expected.to eq(save) }
+    
+    it 'should be able to access the class instance' do
+      expect(instance.perform(save: save)).to eq(subject)
+    end
   end
 end
 ```
