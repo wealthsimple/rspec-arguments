@@ -15,17 +15,22 @@ module RSpec
     METHOD_KEYWORD_ARG = METHOD_ARG_PREFIX + KEYWORD_ARG_SUFFIX
     METHOD_BLOCK_ARG = METHOD_ARG_PREFIX + BLOCK_ARG_SUFFIX
 
-    def process_subject(clazz, &block)
+    def process_subject(clazz)
       class_method = method_under_test(:class_method)
 
       return call_method_with_args(clazz, class_method.to_sym) if class_method
 
-      process_instance_subject(clazz, &block)
+      process_instance_subject(clazz)
+    end
+
+    def process_instance(clazz)
+      __memoized.fetch_or_store(:instance) do
+        call_initializer_with_args(clazz)
+      end
     end
 
     def process_instance_subject(clazz)
-      instance = call_initializer_with_args(clazz)
-      yield(instance)
+      instance = process_instance(clazz)
 
       method = method_under_test(:method)
 

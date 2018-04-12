@@ -17,7 +17,7 @@ module RSpec
 
           if described.is_a?(Class)
             if metadata[:rspec_arguments] || metadata[:method] || metadata[:class_method]
-              process_subject(described) { |instance| __memoized.fetch_or_store(:instance) { instance } }
+              process_subject(described)
             else
               described.new
             end
@@ -31,8 +31,20 @@ module RSpec
       # Reference to the instantiated object, if testing an instance or instance method (but not class method).
       #
       def instance
-        subject # Ensures subject has been loaded
-        __memoized.fetch_or_store(:instance) { raise 'Instance is only available when testing class instances or instance methods' }
+        __memoized.fetch_or_store(:instance) do
+          metadata = self.class.metadata
+          described = described_class || metadata.fetch(:description_args).first
+
+          if described.is_a?(Class)
+            if metadata[:rspec_arguments] || metadata[:method] || metadata[:class_method]
+              raise 'Instance is only available when testing class instances or instance methods' if metadata[:class_method]
+
+              process_instance(described)
+            else
+              described.new
+            end
+          end
+        end
       end
     end
   end

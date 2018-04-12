@@ -76,6 +76,7 @@ RSpec.describe C do
       it_behaves_like :simple_method_args
 
       it 'instance should match parent instance' do
+        expect(self).to receive(:process_subject).never
         expect(instance).to eq(described_class.new(:arg_0, kwarg: :kw_value, &block))
       end
     end
