@@ -32,6 +32,16 @@ RSpec.describe Thing do
 end
 ```
 
+## Install
+Add the following to your `Gemfile`:
+```ruby
+group :test do
+  # ...
+  gem 'rspec-arguments'
+  # ...
+end
+```
+
 ## Documentation
 
 Out-of-the box, RSpec provides us with an implicit `subject` method that instantiates the described class under test, giving us an instance which we can assert on:
