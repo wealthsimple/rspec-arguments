@@ -42,6 +42,11 @@ group :test do
 end
 ```
 
+Execute the following command:
+```bash
+bundle install
+```
+
 ## Documentation
 
 Out-of-the box, RSpec provides us with an implicit `subject` method that instantiates the described class under test, giving us an instance which we can assert on:
