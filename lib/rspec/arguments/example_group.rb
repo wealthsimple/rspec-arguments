@@ -56,6 +56,24 @@ module RSpec
         _arg_block(METHOD_BLOCK_ARG, name, &block)
       end
 
+      def instance(name = nil, &block)
+        if name
+          let(name, &block)
+          alias_method :instance, name
+
+          self::NamedSubjectPreventSuper.__send__(:define_method, name) do
+            raise NotImplementedError, "`super` in named instances is not supported"
+          end
+        else
+          let(:instance, &block)
+        end
+      end
+
+      def instance!(name = nil, &block)
+        instance(name, &block)
+        before { instance }
+      end
+
       private
 
       def _arg(positional_arg, keyword_arg, name, position = nil, &block)

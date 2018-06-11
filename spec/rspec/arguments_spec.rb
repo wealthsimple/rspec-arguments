@@ -79,6 +79,22 @@ RSpec.describe C do
         expect(self).to receive(:process_subject).never
         expect(instance).to eq(described_class.new(:arg_0, kwarg: :kw_value, &block))
       end
+
+      describe 'with explicit `instance` declaration' do
+        it_behaves_like :simple_method_args
+
+        instance { described_class.new(1, kwarg: 1) }
+
+        it 'instance should have expected value' do
+          expect(instance).to eq(described_class.new(1, kwarg: 1))
+        end
+      end
+
+      describe 'overriding :method' do
+        context '#wrong_method', :method do
+          it { is_expected.to eq(:wrong_method) }
+        end
+      end
     end
 
     context '.class_method', :class_method do

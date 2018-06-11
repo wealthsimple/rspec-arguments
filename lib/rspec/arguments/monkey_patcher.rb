@@ -39,7 +39,7 @@ module RSpec
             if metadata[:rspec_arguments] || metadata[:method] || metadata[:class_method]
               raise 'Instance is only available when testing class instances or instance methods' if metadata[:class_method]
 
-              process_instance(described)
+              call_initializer_with_args(described)
             else
               described.new
             end
