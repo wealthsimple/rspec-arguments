@@ -20,17 +20,11 @@ module RSpec
 
       return call_method_with_args(clazz, class_method.to_sym) if class_method
 
-      process_instance_subject(clazz)
+      process_instance_subject
     end
 
-    def process_instance(clazz)
-      __memoized.fetch_or_store(:instance) do
-        call_initializer_with_args(clazz)
-      end
-    end
-
-    def process_instance_subject(clazz)
-      instance = process_instance(clazz)
+    def process_instance_subject
+      instance = self.instance
 
       method = method_under_test(:method)
 
@@ -93,9 +87,16 @@ module RSpec
 
     def search_method_name(metadata, key)
       description = metadata[:description]
+
+      return description if potential_method?(description)
       return description unless metadata[:parent_example_group] && metadata[:parent_example_group][key]
 
       search_method_name(metadata[:parent_example_group], key) if metadata[:parent_example_group]
+    end
+
+    def potential_method?(str)
+      c = str[0]
+      c == '#' || c == '.'
     end
 
     def call_initializer_with_args(receiver)
